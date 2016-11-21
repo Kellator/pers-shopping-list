@@ -48,11 +48,12 @@ app.get('/items', function(req, res) {
                 message: 'Internal Server Error'
             });
         }
+        console.log(items);
         res.json(items);
     });
 });
 //create new item on list taking name from request body
-app.post('/items', function(req, res) {
+app.post('/items/', function(req, res) {
     Item.create({
         name: req.body.name
     }, function(err, item) {
@@ -67,9 +68,8 @@ app.post('/items', function(req, res) {
 //change items on list
 app.put('/items/:id', function(req, res) {
     Item.findOneAndUpdate({
-        id: req.params.id,
-        name: req.body.name
-    }, function(err, item) {
+        _id: req.params.id
+    }, {name: req.body.name}, {new: true}, function(err, item) {
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error'
@@ -79,10 +79,10 @@ app.put('/items/:id', function(req, res) {
         res.status(201).json(item);
     });
 });
-
+//deletes item from the database list
 app.delete('/items/:id', function(req, res) {
     Item.findOneAndRemove({
-        id: req.params.id
+        _id: req.params.id
     }, function(err, item) {
         if (err) {
             return res.status(500).json({
