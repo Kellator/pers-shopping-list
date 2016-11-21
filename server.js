@@ -64,6 +64,34 @@ app.post('/items', function(req, res) {
         res.status(201).json(item);
     });
 });
+//change items on list
+app.put('/items/:id', function(req, res) {
+    Item.findOneAndUpdate({
+        id: req.params.id,
+        name: req.body.name
+    }, function(err, item) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        console.log(item);
+        res.status(201).json(item);
+    });
+});
+
+app.delete('/items/:id', function(req, res) {
+    Item.findOneAndRemove({
+        id: req.params.id
+    }, function(err, item) {
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+        res.status(201).json({success: true});
+    });
+});
 //catch-all end point that serves 404 message if neither of other endpoints hit by request
 app.use('*', function(req, res) {
     res.status(404).json({
