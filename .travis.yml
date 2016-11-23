@@ -7,4 +7,5 @@ addons:
         sources:
         - mongodb -3.2-precise
         packages:
-        -mongodb-org-server
+        - mongodb-org-server
+        
