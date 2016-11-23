@@ -3,8 +3,15 @@ node_js: node_js
 services:
 - mongodb
 addons:
-    apt:
-        sources:
-        - mongodb -3.2-precise
-        packages:
-        - mongodb-org-server
+  apt:
+    sources:
+    - mongodb -3.2-precise
+    packages:
+    - mongodb-org-server
+deploy:
+  provider: heroku
+  api_key:
+    secure: gxId0nHUMRJB8iw6Ks/v/rNo1D2hvT+e2lR0oo6noyzyA5V0wHO0dYixT+ilF3JtSk/bPF9IWN7vDvB7JlE4FPp7dzNl/gcei8EflMeNUpGNWv8G6YEvIb0Owr8jgmTX3XIdbqp6nNJs/xCymr+K9m9ikc+w4G2i716cHwt7U0rvIhbTrcr6CTN8d8VuB5aMGMDJpRc2kQf7c4GJYjk2PKdT3O+3ZghiXiFCcsiUFMISYkTRr9In4E7Rrh51i2HN+TzKc6cM3vF/JHBRxW/uc1jcJ0vZ1mfN4LPd/QajJ0nV6QBwRzTSznyvF9CRr4JiHyqi5cRGebaDP5mcKyt3m0FdcDH4W4rQnIaDeTU2fPxtW6cekznedfE95QWZgpHnGMOE8MIeWY9QlKL1BlNbLC7/1vuIDE49lyPDoEQKja7erQFA8Mpin2fqjPYR/yc5z0oczD+F+Uo49jUNhjIUDiIZnN5Ym3Yfa0QY/eMCgoQy/dOktxDXk1F32YuJCBKL79fv5K2YSYwhqxNl47/lmCh6aR8V+LJzpnN2UGROJxJOVFiBhPKG3NSnI0TZPZe4UyeIlgTxHrqvYeXcb9Ylr8ZW9Z8sWVxcGEBiSZwEeoP53MXgbn83iyX1ZtpgrynEPnafZszZV1wOOn7LefUMcWuAbINwuIu5lZSfxlLzEp0=
+  app: infinite-eyrie-93235
+  on:
+    repo: Kellator/pers-shopping-list
