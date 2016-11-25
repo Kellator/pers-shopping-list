@@ -66,19 +66,32 @@ app.post('/items/', function(req, res) {
     });
 });
 //change items on list
-app.put('/items/:id', function(req, res) {
-    Item.findOneAndUpdate({
-        _id: req.params.id
-    }, {name: req.body.name}, {new: true}, function(err, item) {
-        if (err) {
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-        console.log(item);
-        res.status(201).json(item);
+app.put('/items/:id', function(req,res) {
+    var id = {_id: req.params.id};
+    var update = {name: req.body.name};
+    Item.findOneAndUpdate(id, update, function(err, items) {
+      if (err) {
+      return res.status(500).json({
+          message: 'Internal Server Error'
+      });
+      }
+      console.log(items);
+      res.status(201).json(items);
     });
 });
+// app.put('/items/:id', function(req, res) {
+//     Item.findOneAndUpdate({
+//         _id: req.params.id
+//     }, {name: req.body.name}, {new: true}, function(err, item) {
+//         if (err) {
+//             return res.status(500).json({
+//                 message: 'Internal Server Error'
+//             });
+//         }
+//         console.log(item);
+//         res.status(201).json(item);
+//     });
+// });
 //deletes item from the database list
 app.delete('/items/:id', function(req, res) {
     Item.findOneAndRemove({
