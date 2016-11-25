@@ -123,23 +123,53 @@ describe('Shopping List', function() {
     //         });
     // });
     it('should delete an item on delete', function(done) {
-        chai.request(app)
-            .delete('/items/1')
-            .send()
-            .end(function(err, res) {
-                should.equal(err, null);
-                res.should.have.status(200);
-                Item.should.have.length(2);
-                // Item.should.be.a('array');
-                // Item[0].should.be.a('object');
-                // Item[0].should.have.property('_id');
-                // Item[0].should.have.property('name');
-                // Item[0]._id.should.be.a('string');
-                // Item[0].name.should.be.a('string');
-                res.body.should.be.a('object');
-                res.should.be.json;
-                done();
-            });
+      // NOTE: You must 'POST' first.
+      chai.request(app)
+          .post('/items')
+          // NOTE: We send 'Grapes' to the DB.
+          .send({ name: 'Grapes' })
+          .end(function(err, res) {
+            res.should.have.status(201);
+            var id = res.body._id;
+            chai.request(app)
+            // NOTE: We again must specify the MongoDB id not our own.
+                .delete('/items/' + id)
+                .end(function(err, res) {
+                  res.should.have.status(201);
+                  chai.request(app)
+                  // NOTE: We then check the DB to make sure 'Grapes' is no longer present.
+                      .get('/items')
+                      .end(function(err, res) {
+                        should.equal(err, null);
+                        res.should.have.status(200);
+                        res.body.should.be.a('array');
+                        res.body.should.have.length(5);
+                        res.body[0].name.should.equal('Broad beans');
+                        res.body[1].name.should.equal('Kale');
+                        res.body[2].name.should.equal('Peppers');
+                        res.body[3].name.should.equal('Pickles');
+                        res.body[4].name.should.equal('Tomatoes');
+                        done();
+                      })
+                })
+          })
+        // chai.request(app)
+        //     .delete('/items/1')
+        //     .send()
+        //     .end(function(err, res) {
+        //         should.equal(err, null);
+        //         res.should.have.status(200);
+        //         Item.should.have.length(2);
+        //         // Item.should.be.a('array');
+        //         // Item[0].should.be.a('object');
+        //         // Item[0].should.have.property('_id');
+        //         // Item[0].should.have.property('name');
+        //         // Item[0]._id.should.be.a('string');
+        //         // Item[0].name.should.be.a('string');
+        //         res.body.should.be.a('object');
+        //         res.should.be.json;
+        //         done();
+        //     });
     });
 
     after(function(done) {
