@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --watch --reporter spec",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "push": "git push origin testing"
   },
   "author": "Kelly Miller",
   "license": "ISC",
