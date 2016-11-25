@@ -7,7 +7,9 @@ var server = require('../server.js');
 var Item = require('../models/items');
 
 var should = chai.should();
+var expect = chai.expect();
 var app = server.app;
+
 
 chai.use(chaiHttp);
 
@@ -15,14 +17,15 @@ describe('Shopping List', function() {
     before(function(done) {
         server.runServer(function() {
             Item.create({name: 'Broad beans'},
-            {name: 'Tomatoes'},
-            {name: 'Peppers'}, function() {
+                        {name: 'Tomatoes'},
+                        {name: 'Peppers'}, function() {
                 done();
             });
         });
     });
-    
+
     it('should list items on get', function(done) {
+        console.log(server.Item);
         chai.request(app)
         .get('/items')
         .end(function(err, res) {
@@ -56,13 +59,12 @@ describe('Shopping List', function() {
                 res.body.name.should.be.a('string');
                 res.body._id.should.be.a('string');
                 res.body.name.should.be.equal('Kale');
-                // Item.items.should.be.a('array');
-                // Item.should.have.length(4);
-                // Item[3].should.be.a('object');
-                // Item[3].should.have.property('_id');
-                // Item[3].should.have.property('name');
-                // Item[3]._id.should.be.a('string');
-                // Item[3].name.should.be.a('string');
+                Item.should.have.length(3);
+                //Item.should.be.a('array');
+                // Item[2].should.have.property('_id');
+                // Item[2].should.have.property('name');
+                // Item[2]._id.should.be.a('string');
+                // Item[2].name.should.be.a('string');
                 // Item[3].name.should.equal('Kale');
                 done();
             });
@@ -80,7 +82,7 @@ describe('Shopping List', function() {
                 res.body.should.have.property('_id');
                 res.body.name.should.be.a('string');
                 res.body._id.should.be.a('number');
-                // Item.should.be.a('array');
+                Item.should.be.a('array');
                 // Item[0].should.be.a('object');
                 // Item[0].should.have.property('_id');
                 // Item[0].should.have.property('name');
@@ -99,7 +101,7 @@ describe('Shopping List', function() {
                 should.equal(err, null);
                 res.should.have.status(200);
                 Item.should.have.length(2);
-                Item.should.be.a('array');
+                // Item.should.be.a('array');
                 // Item[0].should.be.a('object');
                 // Item[0].should.have.property('_id');
                 // Item[0].should.have.property('name');
@@ -110,6 +112,7 @@ describe('Shopping List', function() {
                 done();
             });
     });
+
     after(function(done) {
         Item.remove(function() {
             done();
