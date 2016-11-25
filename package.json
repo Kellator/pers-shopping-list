@@ -4,7 +4,7 @@
   "description": "Persistent Shopping List App for Thinkful studies",
   "main": "server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec",
+    "test": "mocha --watch --reporter spec",
     "start": "nodemon server.js"
   },
   "author": "Kelly Miller",
