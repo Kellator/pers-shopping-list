@@ -41,7 +41,7 @@ exports.runServer = runServer;
 //middlewares
 var Item = require('./models/items');
 //retrieve list of items from database and returns as JSON
-app.get('/items', function(req, res) {\
+app.get('/items', function(req, res) {
   // NOTE: .sort('name').exec() will sort inputs by name from A-Z
     Item.find().sort('name').exec(function(err, items) {
         if (err) {
