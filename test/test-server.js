@@ -17,8 +17,8 @@ describe('Shopping List', function() {
     before(function(done) {
         server.runServer(function() {
             Item.create({name: 'Broad beans'},
-                        {name: 'Tomatoes'},
-                        {name: 'Peppers'}, function() {
+                        {name: 'Peppers'},
+                        {name: 'Tomatoes'}, function() {
                 done();
             });
         });
@@ -40,8 +40,8 @@ describe('Shopping List', function() {
             res.body[0]._id.should.be.a('string');
             res.body[0].name.should.be.a('string');
             res.body[0].name.should.be.equal('Broad beans');
-            res.body[1].name.should.be.equal('Tomatoes');
-            res.body[2].name.should.be.equal('Peppers');
+            res.body[1].name.should.be.equal('Peppers');
+            res.body[2].name.should.be.equal('Tomatoes');
             done();
         });
     });
